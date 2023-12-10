@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_validation/gallery.dart';
 import 'package:form_validation/signUp_page.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Sanchez, Hans Zin Activity',
       debugShowCheckedModeBanner: false,
-      home: SignUp(),
+      /* home: SignUp(), */
+      home: Gallery(),
     );
   }
 }

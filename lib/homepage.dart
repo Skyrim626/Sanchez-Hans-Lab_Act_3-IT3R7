@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_validation/person.dart';
 import 'package:form_validation/signUp_page.dart';
+import 'package:form_validation/widgets/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
   Person? person;
@@ -27,25 +28,26 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of((context))
-                    .push(MaterialPageRoute(builder: ((context) => SignUp())));
+                Navigator.of((context)).push(
+                    MaterialPageRoute(builder: ((context) => const SignUp())));
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
                 color: Colors.white,
               ))
         ],
-        leading: Icon(
+        leading: const Icon(
           Icons.code,
           color: Colors.white,
         ),
         title: Text(
           "Welcome ${widget.person?.getFullName}",
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
+      drawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -54,8 +56,8 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 50,
             ),
-            Center(
-              child: const Icon(
+            const Center(
+              child: Icon(
                 Icons.person,
                 size: 150,
               ),
@@ -64,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   "${widget.person?.getFullName}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1,
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text(
                   "${widget.person?.getEmailAddress}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 1,
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Row(
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -96,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
               thickness: 2,
               height: 25,
@@ -131,7 +133,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             "$attribute:",
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0XFF87CEEB),
               fontWeight: FontWeight.w500,
               fontSize: 16,
@@ -139,7 +141,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Text(
             "$info",
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 15,
             ),
