@@ -14,26 +14,67 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  Map imageResult = {};
+  Map<dynamic, dynamic> imageResult = {};
 
   /* List<Map<String, dynamic>> listImages = []; */
-  List listImages = [];
+  List<dynamic> listImages = [];
+
+  // Page Number
+  int pageNumber = 1;
 
   @override
   void initState() {
     // TODO: implement initState
-
     fetchImages();
     /*  fetchDumbImages(); */
+    /* initializeImages(); */
     super.initState();
   }
 
-  Future<void> fetchImages() async {
+  /* void initializeImages() async {
+    /* listImages = await fetchImages(); */
+    listImages = await fetchImages();
+    print(listImages);
+
+    setState(() {});
+  } */
+
+  /* Future<dynamic> fetchImages() async {
     await http.get(Uri.parse('https://api.pexels.com/v1/curated?per_page=21'),
         headers: {'Authorization': pexelApiKey}).then((value) {
       imageResult = jsonDecode(value.body);
+    });
+
+    return imageResult['photos'];
+  } */
+
+  void fetchImages() async {
+    // Default per_page = 15
+    // Max per_page = 80
+    await http.get(Uri.parse('https://api.pexels.com/v1/curated?per_page=80'),
+        headers: {'Authorization': pexelApiKey}).then((value) {
+      imageResult = jsonDecode(value.body);
+
       setState(() {
         listImages = imageResult['photos'];
+      });
+    });
+  }
+
+  void loadMore() async {
+    setState(() {
+      pageNumber = pageNumber + 1;
+    });
+
+    String url =
+        "https://api.pexels.com/v1/curated?per_page=80&page=$pageNumber";
+
+    await http.get(Uri.parse(url),
+        headers: {'Authorization': pexelApiKey}).then((value) {
+      imageResult = jsonDecode(value.body);
+
+      setState(() {
+        listImages.addAll(imageResult['photos']);
       });
     });
   }
@@ -45,6 +86,9 @@ class _GalleryState extends State<Gallery> {
         appBar: AppBar(
           title: const Text("Gallery"),
           centerTitle: true,
+          actions: [
+            IconButton(onPressed: loadMore, icon: Icon(Icons.add)),
+          ],
         ),
         body: GridView.builder(
             itemCount: listImages.length,
@@ -58,7 +102,8 @@ class _GalleryState extends State<Gallery> {
             }));
   }
 
-  Padding imageContainer({required String imageUrl, required Map imageID}) {
+  Padding imageContainer(
+      {required String imageUrl, required Map<dynamic, dynamic> imageID}) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: GestureDetector(

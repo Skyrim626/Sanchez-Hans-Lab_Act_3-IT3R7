@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_validation/gallery.dart';
 
 class ImageScreen extends StatefulWidget {
-  Map imageDescription = {};
+  Map<dynamic, dynamic> imageDescription = {};
 
   ImageScreen({super.key, required this.imageDescription});
 
